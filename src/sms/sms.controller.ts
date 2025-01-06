@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
 @Controller('sms')
+@UseGuards(JwtAuthGuard)
 export class SmsController {
   constructor(private smsService: SmsService) {}
 
