@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { PaginationDTO } from './dto/Pagination.dto';
 
 @Controller('sms')
 @UseGuards(JwtAuthGuard)
@@ -15,8 +16,8 @@ export class SmsController {
   }
 
   @Get()
-  findAll() {
-    return this.smsService.findAll();
+  findAll(@Query() paginationDTO: PaginationDTO){
+    return this.smsService.findAll(paginationDTO);
   }
 
   @Get(':id')

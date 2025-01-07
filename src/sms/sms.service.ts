@@ -1,18 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
+import { Repository } from 'typeorm';
+import { Logsms } from './entities/logsms.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationDTO } from './dto/pagination.dto';
 
 @Injectable()
 export class SmsService {
+  constructor(@InjectRepository(Logsms) private logsmsRepository: Repository<Logsms>) {
+    
+  }
+
   create(createSmDto: CreateSmDto) {
     // insert data to database & check type of sms
     return 'This action adds a new sm';
   }
 
-  findAll() {
+  async findAll(paginationDTO: PaginationDTO) {
+    return await this.logsmsRepository.find({
+      skip: paginationDTO.skip,
+      take: paginationDTO.limit ?? 10
+    });
 
 
-    
     return `This action returns all sms`;
   }
 
