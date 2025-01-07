@@ -10,6 +10,9 @@ export class SmsService {
   }
 
   findAll() {
+
+
+    
     return `This action returns all sms`;
   }
 

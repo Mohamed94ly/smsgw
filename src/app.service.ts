@@ -4,7 +4,7 @@ import axios from 'axios';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'NestJS ...!';
+    return 'nestjs ..';
   }
 
   async sendMessageFromSMS(msg: string, phone: string){

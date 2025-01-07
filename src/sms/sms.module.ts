@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Logsms } from './entities/logsms.entity';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Logsms])],
   controllers: [SmsController],
   providers: [SmsService],
 })

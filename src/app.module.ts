@@ -9,8 +9,9 @@ import { Logsms } from './sms/entities/logsms.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type:'mysql',
+      type:'mariadb',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USER,
@@ -18,9 +19,9 @@ import { Logsms } from './sms/entities/logsms.entity';
       database: process.env.DB_NAME,
       timezone: 'utc',
       entities: [Logsms],
-      synchronize: true,
+      synchronize: false,
     }),
-    AuthModule, SmsModule, ConfigModule.forRoot()],
+    AuthModule, SmsModule],
   controllers: [AppController],
   providers: [AppService],
 })
