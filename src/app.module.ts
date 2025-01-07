@@ -11,16 +11,16 @@ import { Logsms } from './sms/entities/logsms.entity';
   imports: [
     TypeOrmModule.forRoot({
       type:'mysql',
-      host: '127.0.0.1',
-      port: 3306,
-      username: 'rootjs',
-      password: 'rootjs',
-      database: 'smsgw',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       entities: [Logsms],
       synchronize: true,
     }),
     AuthModule, SmsModule, ConfigModule.forRoot()],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

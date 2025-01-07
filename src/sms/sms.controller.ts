@@ -17,13 +17,13 @@ export class SmsController {
   @Get('sms')
   sendSms() {
     //return "send sms";
-    return this.smsService.sendMessageFromSMS("test", "0927356481");
+    //return this.smsService.sendMessageFromSMS("test", "0927356481");
   }
 
   @Get('telgram')
   sendTelgram() {
     //return "send telgram";
-    return this.smsService.sendMessagesFromTelgram("test");
+    //return this.smsService.sendMessagesFromTelgram("test");
   }
 
   @Get()
