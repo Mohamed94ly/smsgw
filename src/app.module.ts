@@ -16,6 +16,7 @@ import { Logsms } from './sms/entities/logsms.entity';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
+      timezone: 'utc',
       entities: [Logsms],
       synchronize: true,
     }),

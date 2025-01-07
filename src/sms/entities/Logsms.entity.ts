@@ -5,8 +5,8 @@ export class Logsms {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({default: new Date()})
-    created_at: Date;
+    // @Column({default: new Date()})
+    // created_at: Date;
 
     @Column({nullable: true})
     msg: string;
@@ -17,6 +17,6 @@ export class Logsms {
     @Column({nullable: true})
     type: string;
 
-    @Column({nullable: true})
-    status: string;
+    // @Column({nullable: true})
+    // status: string;
 }
