@@ -6,11 +6,13 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ManagerModule } from 'src/manager/manager.module';
+import { AppModule } from 'src/app.module';
 
 @Module({
   imports: [
     PassportModule,
     forwardRef(() => ManagerModule),
+    forwardRef(() => AppModule),
     JwtModule.register({
       secret: 'abc123',
       signOptions: { expiresIn: '1h' },

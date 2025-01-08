@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { response } from 'express';
 import { ManagerService } from 'src/manager/manager.service';
 import passport from 'passport';
+import { AppService } from 'src/app.service';
 
 const fakeUsers = [
     {
@@ -22,12 +23,13 @@ const fakeUsers = [
 
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService, private managerService: ManagerService) {}
+    constructor(private jwtService: JwtService, private managerService: ManagerService, 
+        private appService: AppService) {}
 
     async validateUser({username, password}: authPayloadDto) {
         const user = await this.managerService.findOneByUsername(username);
 
-        if(user.pass !== password) {
+        if(!this.appService.compareHash(password, user.pass)){ 
             throw new HttpException('User not found', 404);
         }else{
             return {

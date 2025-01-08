@@ -18,6 +18,12 @@ export class AppController {
 
   @Get('encrypt')
   async encrypt(@Body() body){
-    return {'hash': await this.appService.hashText(body.text)};
+    return {'hash': await this.appService.hashText(body.pass)};
+  }
+
+  @Get('checkHass')
+  async checkHass(@Body() body){
+    const isMatch = this.appService.compareHash(body.pass, body.hash);
+    return isMatch;
   }
 }
