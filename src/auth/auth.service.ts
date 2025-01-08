@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { authPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import { response } from 'express';
 
 const fakeUsers = [
     {
@@ -23,7 +24,11 @@ export class AuthService {
         
         if(password === findUser.password) {
             const { password, ...user } = findUser;
-            return this.jwtService.sign(user);
+
+            return {
+                'access_token': this.jwtService.sign(user),
+            };
+
         }
     }
 }

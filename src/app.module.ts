@@ -24,5 +24,6 @@ import { Logsms } from './sms/entities/logsms.entity';
     AuthModule, SmsModule],
   controllers: [AppController],
   providers: [AppService],
+  exports: [AppService]
 })
 export class AppModule {}

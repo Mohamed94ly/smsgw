@@ -5,16 +5,24 @@ import { Repository } from 'typeorm';
 import { Logsms } from './entities/logsms.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationDTO } from './dto/pagination.dto';
+import { AppService } from 'src/app.service';
 
 @Injectable()
 export class SmsService {
-  constructor(@InjectRepository(Logsms) private logsmsRepository: Repository<Logsms>) {
-    
+  appService;
+  constructor(@InjectRepository(Logsms) private logsmsRepository: Repository<Logsms>, 
+   appService: AppService) {
+    this.appService = appService;
   }
 
   create(createSmDto: CreateSmDto) {
-    // insert data to database & check type of sms
-    return 'This action adds a new sm';
+    let typeSMS = this.appService.checkTypeSMS(createSmDto.msg);
+    if( typeSMS != ""){
+      createSmDto.type = typeSMS;
+    }
+
+    const response = this.logsmsRepository.save(createSmDto);
+    return response;
   }
 
   async findAll(paginationDTO: PaginationDTO) {
@@ -22,9 +30,6 @@ export class SmsService {
       skip: paginationDTO.skip,
       take: paginationDTO.limit ?? 10
     });
-
-
-    return `This action returns all sms`;
   }
 
   findOne(id: number) {
@@ -37,25 +42,5 @@ export class SmsService {
 
   remove(id: number) {
     return `This action removes a #${id} sm`;
-  }
-
-  checkTypeSMS(sms: string){
-    let type1:string = "تم تفعيل حسابك";
-    let type2:string = "ينتهى اشتراكك";
-    let type3:string = "ome-30LYD-40GB";
-    let type4:string = "ضافة بقيمة";
-    let type5:string = "نعتذر";
-
-    if(sms.search(type1) !== -1){
-      return "تفعيل الخدمة";
-    }else if(sms.search(type2) !== -1){
-      return "نهاية الخدمة";
-    }else if(sms.search(type3) !== -1){
-      return "باقة الاساسية";
-    }else if(sms.search(type4) !== -1){
-      return "اضافة رصيد لوكيل";
-    }else if(sms.search(type5) !== -1){
-      return "رسالة اعتذار";
-    }
   }
 }
