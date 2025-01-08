@@ -1,6 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { authPayloadDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import { response } from 'express';
+import { ManagerService } from 'src/manager/manager.service';
+import passport from 'passport';
+import { AppService } from 'src/app.service';
 
 const fakeUsers = [
     {
@@ -11,19 +15,26 @@ const fakeUsers = [
         username: 'user2',
         password: 'password2',
     },
+    {
+        username: 'mba',
+        password: '9dc8176368f4491fc0a11aa5c58e2903'
+    },
 ]
 
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService) {}
+    constructor(private jwtService: JwtService, private managerService: ManagerService, 
+        private appService: AppService) {}
 
-    validateUser({username, password}: authPayloadDto) {
-        const findUser = fakeUsers.find((user) => user.username === username);
-        if (!findUser) return null;
-        
-        if(password === findUser.password) {
-            const { password, ...user } = findUser;
-            return this.jwtService.sign(user);
+    async validateUser({username, password}: authPayloadDto) {
+        const user = await this.managerService.findOneByUsername(username);
+
+        if(!this.appService.compareHash(password, user.pass)){ 
+            throw new HttpException('User not found', 404);
+        }else{
+            return {
+                'access_token': this.jwtService.sign({'username': user.user}),
+            };
         }
     }
 }
