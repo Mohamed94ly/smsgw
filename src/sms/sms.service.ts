@@ -9,10 +9,9 @@ import { AppService } from 'src/app.service';
 
 @Injectable()
 export class SmsService {
-  appService;
+  
   constructor(@InjectRepository(Logsms) private logsmsRepository: Repository<Logsms>, 
-   appService: AppService) {
-    this.appService = appService;
+   private appService: AppService) {
   }
 
   create(createSmDto: CreateSmDto) {

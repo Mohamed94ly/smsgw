@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -14,5 +14,10 @@ export class AppController {
   async sendMessageFromSMS(){
     return "send sms";
     return this.appService.sendMessageFromSMS("Hello", "0917356481");
+  }
+
+  @Get('encrypt')
+  async encrypt(@Body() body){
+    return {'hash': await this.appService.hashText(body.text)};
   }
 }
