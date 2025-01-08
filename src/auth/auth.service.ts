@@ -6,21 +6,6 @@ import { ManagerService } from 'src/manager/manager.service';
 import passport from 'passport';
 import { AppService } from 'src/app.service';
 
-const fakeUsers = [
-    {
-        username: 'user1',
-        password: 'password1',
-    },
-    {
-        username: 'user2',
-        password: 'password2',
-    },
-    {
-        username: 'mba',
-        password: '9dc8176368f4491fc0a11aa5c58e2903'
-    },
-]
-
 @Injectable()
 export class AuthService {
     constructor(private jwtService: JwtService, private managerService: ManagerService, 
