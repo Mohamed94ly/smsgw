@@ -4,14 +4,20 @@ import { UpdateManagerDto } from './dto/update-manager.dto';
 import { Manager } from './entities/Manager.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { AppService } from 'src/app.service';
 
 @Injectable()
 export class ManagerService {
 
-  constructor(@InjectRepository(Manager) private managerRepository: Repository<Manager>){}
+  constructor(@InjectRepository(Manager) private managerRepository: Repository<Manager>, private appService:AppService){}
 
-  create(createManagerDto: CreateManagerDto) {
-    return 'This action adds a new manager';
+  async create(createManagerDto: CreateManagerDto) {
+
+    const hash = await this.appService.hashText(createManagerDto.pass)
+
+    createManagerDto.pass = hash;
+
+    return this.managerRepository.save(createManagerDto);
   }
 
   findAll() {
