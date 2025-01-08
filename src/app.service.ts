@@ -89,8 +89,6 @@ export class AppService {
   }
 
   async compareHash(text: string, hash: string){
-    const isMatch = await bcrypt.compare(text, hash);
-
-    return isMatch;
+    return await bcrypt.compare(text, hash);
   }
 }

@@ -14,9 +14,9 @@ export class AuthService {
     async validateUser({username, password}: authPayloadDto) {
         const user = await this.managerService.findOneByUsername(username);
 
-        if(!this.appService.compareHash(password, user.pass)){ 
+        if(!await this.appService.compareHash(password, user.pass))
             throw new HttpException('User not found', 404);
-        }else{
+        else{
             return {
                 'access_token': this.jwtService.sign({'username': user.user}),
             };

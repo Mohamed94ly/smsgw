@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateManagerDto } from './dto/create-manager.dto';
 import { UpdateManagerDto } from './dto/update-manager.dto';
 import { Manager } from './entities/Manager.entity';
@@ -12,6 +12,9 @@ export class ManagerService {
   constructor(@InjectRepository(Manager) private managerRepository: Repository<Manager>, private appService:AppService){}
 
   async create(createManagerDto: CreateManagerDto) {
+
+    if(await this.findOneByUsername(createManagerDto.user))
+      throw new HttpException('User already exists', 404);;
 
     const hash = await this.appService.hashText(createManagerDto.pass)
 
