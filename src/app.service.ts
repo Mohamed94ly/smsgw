@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UsePipes, ValidationPipe } from '@nestjs/common';
 import axios from 'axios';
 import { createCipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
@@ -89,8 +89,6 @@ export class AppService {
   }
 
   async compareHash(text: string, hash: string){
-    const isMatch = await bcrypt.compare(text, hash);
-
-    return isMatch;
+    return await bcrypt.compare(text, hash);
   }
 }

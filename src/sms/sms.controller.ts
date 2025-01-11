@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, ValidationPipe } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
@@ -11,7 +11,7 @@ export class SmsController {
   constructor(private smsService: SmsService) {}
 
   @Post()
-  create(@Body() createSmDto: CreateSmDto) {
+  create(@Body(new ValidationPipe()) createSmDto: CreateSmDto) {
     return this.smsService.create(createSmDto);
   }
 

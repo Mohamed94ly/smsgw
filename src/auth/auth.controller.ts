@@ -11,6 +11,7 @@ export class AuthController {
     @Post('login')
     @UseGuards(LocalGuard)
     login(@Req() req: Request) {
+        //console.log('Inside AuthController login method');
         return req.user;
     }
 
