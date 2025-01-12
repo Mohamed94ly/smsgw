@@ -20,7 +20,7 @@ import { Logsms } from './sms/entities/logsms.entity';
       synchronize: true,
     }),
     AuthModule, SmsModule, ConfigModule.forRoot()],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
