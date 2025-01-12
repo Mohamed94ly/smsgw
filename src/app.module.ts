@@ -24,15 +24,9 @@ import { ManagerModule } from './manager/manager.module';
       entities: [Logsms, Manager],
       synchronize: false,
     }),
-<<<<<<< HEAD
-    AuthModule, SmsModule, ConfigModule.forRoot()],
-  controllers: [AppController],
-  providers: [AppService],
-=======
     AuthModule, SmsModule, ManagerModule],
   controllers: [AppController],
   providers: [AppService],
   exports: [AppService]
->>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
 })
 export class AppModule {}

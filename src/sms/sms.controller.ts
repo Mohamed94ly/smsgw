@@ -15,21 +15,6 @@ export class SmsController {
     return this.smsService.create(createSmDto);
   }
 
-<<<<<<< HEAD
-  @Get('sms')
-  sendSms() {
-    //return "send sms";
-    //return this.smsService.sendMessageFromSMS("test", "0927356481");
-  }
-
-  @Get('telgram')
-  sendTelgram() {
-    //return "send telgram";
-    //return this.smsService.sendMessagesFromTelgram("test");
-  }
-
-=======
->>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
   @Get()
   findAll(@Query() paginationDTO: PaginationDTO){
     return this.smsService.findAll(paginationDTO);

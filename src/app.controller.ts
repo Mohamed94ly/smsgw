@@ -13,12 +13,6 @@ export class AppController {
   }
 
   @Get('sendSMS')
-<<<<<<< HEAD
-  async sendMessageFromSMS(){
-    return "send sms";
-    return this.appService.sendMessageFromSMS("Hello", "0917356481");
-  }
-=======
   async sendMessageFromSMS(@Body() body){
     return this.appService.sendMessageFromSMS(body.msg, body.phone);
   }
@@ -38,5 +32,4 @@ export class AppController {
   //   const isMatch = this.appService.compareHash(body.pass, body.hash);
   //   return isMatch;
   // }
->>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
 }

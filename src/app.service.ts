@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import { Injectable } from '@nestjs/common';
-import axios from 'axios';
-=======
 import { Injectable, UsePipes, ValidationPipe } from '@nestjs/common';
 import axios from 'axios';
 import { createCipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
 import * as bcrypt from 'bcrypt';
->>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
 
 @Injectable()
 export class AppService {
@@ -95,38 +90,5 @@ export class AppService {
 
   async compareHash(text: string, hash: string){
     return await bcrypt.compare(text, hash);
-  }
-
-  async sendMessageFromSMS(msg: string, phone: string){
-    const token = process.env.TOKEN_SMS;
-    const ipGW = process.env.IP_GW;
-    const portGW = process.env.PORT_GW;
-    const url = "http://" + ipGW + ":" + portGW + "/?number=" + phone + "&message=" + msg + "&token=" + token;
-
-    try{
-      const response = await axios.get(url);
-      return response.data;
-    }catch(error){
-      console.log(error);
-    }
-  }
-
-  async sendMessagesFromTelgram(msg: string){
-    const BOT_ID = process.env.BOT_ID;
-    const CHAT_ID = process.env.CHAT_ID;
-
-    const url = "https://api.telegram.org/"+ BOT_ID +"/sendMessage?chat_id="+CHAT_ID+"&text=" + msg;
-    
-    try{
-      const response = await axios.get(url);
-      return response.data;
-    }catch(error){
-      console.log(error);
-    }
-  }
-
-  checkSendedSMSToday(){
-    // check if the client send sms today
-    return "true";
   }
 }
