@@ -11,14 +11,15 @@ export class AuthController {
     @Post('login')
     @UseGuards(LocalGuard)
     login(@Req() req: Request) {
+        //console.log('Inside AuthController login method');
         return req.user;
     }
 
     @Get('status')
     @UseGuards(JwtAuthGuard)
     status(@Req() req: Request) {
-        console.log('Inside AuthController status method'); 
-        console.log(req.user);
+        //console.log('Inside AuthController status method'); 
+        //console.log(req.user);
         return req.user;
     }  
 }

@@ -1,16 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
+<<<<<<< HEAD
+=======
+import { Repository } from 'typeorm';
+import { Logsms } from './entities/logsms.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationDTO } from './dto/pagination.dto';
+import { AppService } from 'src/app.service';
+>>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
 
 @Injectable()
 export class SmsService {
-  create(createSmDto: CreateSmDto) {
-    // insert data to database & check type of sms
-    return 'This action adds a new sm';
+  
+  constructor(@InjectRepository(Logsms) private logsmsRepository: Repository<Logsms>, 
+   private appService: AppService) {
   }
 
-  findAll() {
-    return `This action returns all sms`;
+  create(createSmDto: CreateSmDto) {
+    let typeSMS = this.appService.checkTypeSMS(createSmDto.msg);
+    if( typeSMS != ""){
+      createSmDto.type = typeSMS;
+    }
+
+    const response = this.logsmsRepository.save(createSmDto);
+    return response;
+  }
+
+  async findAll(paginationDTO: PaginationDTO) {
+    return await this.logsmsRepository.find({
+      skip: paginationDTO.skip,
+      take: paginationDTO.limit ?? 10
+    });
   }
 
   findOne(id: number) {
@@ -24,6 +45,7 @@ export class SmsService {
   remove(id: number) {
     return `This action removes a #${id} sm`;
   }
+<<<<<<< HEAD
 
   checkTypeSMS(sms: string){
     let type1:string = "تم تفعيل حسابك";
@@ -44,4 +66,6 @@ export class SmsService {
       return "رسالة اعتذار";
     }
   }
+=======
+>>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
 }

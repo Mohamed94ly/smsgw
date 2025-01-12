@@ -5,18 +5,15 @@ export class Logsms {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({default: new Date()})
+    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', nullable: true})
     created_at: Date;
 
-    @Column({nullable: true})
+    @Column({type:"varchar", length: 200, nullable: true})
     msg: string;
 
-    @Column({nullable: true})
+    @Column({type:"varchar", length: 50, nullable: true})
     phone: string;
 
-    @Column({nullable: true})
+    @Column({type:"varchar", length: 50, nullable: true})
     type: string;
-
-    @Column({nullable: true})
-    status: string;
 }

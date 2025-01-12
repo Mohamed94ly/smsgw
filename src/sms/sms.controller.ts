@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, ValidationPipe } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { CreateSmDto } from './dto/create-sm.dto';
 import { UpdateSmDto } from './dto/update-sm.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { PaginationDTO } from './dto/Pagination.dto';
 
 @Controller('sms')
 @UseGuards(JwtAuthGuard)
@@ -10,10 +11,11 @@ export class SmsController {
   constructor(private smsService: SmsService) {}
 
   @Post()
-  create(@Body() createSmDto: CreateSmDto) {
+  create(@Body(new ValidationPipe()) createSmDto: CreateSmDto) {
     return this.smsService.create(createSmDto);
   }
 
+<<<<<<< HEAD
   @Get('sms')
   sendSms() {
     //return "send sms";
@@ -26,9 +28,11 @@ export class SmsController {
     //return this.smsService.sendMessagesFromTelgram("test");
   }
 
+=======
+>>>>>>> 09ff45ca1337581ce8f743fe3cb9e2714a6b295b
   @Get()
-  findAll() {
-    return this.smsService.findAll();
+  findAll(@Query() paginationDTO: PaginationDTO){
+    return this.smsService.findAll(paginationDTO);
   }
 
   @Get(':id')
